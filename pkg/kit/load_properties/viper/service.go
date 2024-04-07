@@ -3,14 +3,14 @@ package viper
 import (
 	"errors"
 	"fmt"
-	"github.com/melisource/fury_go-platform/pkg/fury/secret"
+	"io/ioutil"
 	"os"
 	"reflect"
 	"strings"
 
-	"github.com/melisource/fury_op-go-toolkit/pkg/kit/app_profile"
-	"github.com/melisource/fury_op-go-toolkit/pkg/kit/load_properties"
 	"github.com/mitchellh/mapstructure"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/app_profile"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/load_properties"
 	"github.com/spf13/viper"
 )
 
@@ -199,4 +199,14 @@ func setPath() string {
 	}
 
 	return "kit/config"
+}
+
+func readSecret(secretName string) (string, error) {
+	secretPath := "/run/secrets/" + secretName
+	secretData, err := ioutil.ReadFile(secretPath)
+	if err != nil {
+		return "", err
+	}
+
+	return string(secretData), nil
 }

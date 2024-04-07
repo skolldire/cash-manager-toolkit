@@ -1,4 +1,4 @@
-package web_app_builder
+package app_builder
 
 // The App interface defines the methods that the application should expose.
 type App interface {

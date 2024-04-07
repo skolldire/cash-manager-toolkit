@@ -1,9 +1,11 @@
 package orm
 
-import "github.com/jinzhu/gorm"
+import (
+	"xorm.io/xorm"
+)
 
 type Service interface {
-	Init() *gorm.DB
+	Init() *xorm.Engine
 }
 
 type Config struct {

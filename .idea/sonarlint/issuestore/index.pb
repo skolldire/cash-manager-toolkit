@@ -9,8 +9,6 @@ M
 pkg/kit/app_profile/entity.go,a/d/ad1f9619b5daa6f24c42cf19b04cf5e70263ade7
 O
 pkg/kit/db_connection/entity.go,c/d/cd6727225a9309b77ea8226850d45bb559188af8
-P
- pkg/kit/db_connection/service.go,d/9/d9fb92efd3848c4d97f0f18b8086ea04253c91c1
 L
 pkg/kit/app_engine/entity.go,c/a/cad6716d7186f8e86b6ab027d69bf85803477b09
 M
@@ -36,10 +34,6 @@ M
 pkg/kit/http/client/entity.go,2/4/2407f583e549067b7ff57ee9ef14f80e6b87c330
 N
 pkg/kit/http/client/service.go,c/0/c0e85f9c72c11e30f540a006b878e875c1966cbd
-R
-"pkg/kit/web_app_builder/service.go,d/6/d6759f4d0df29a0fa77ff0420a6f72bf7ae16521
-Q
-!pkg/kit/web_app_builder/entity.go,e/b/eb5aa104104caaea6f39f14313ea47bb916f97e9
 N
 pkg/kit/task_runner/service.go,b/8/b8964af68c0176f5997344bcd585ec19a8544f75
 M
@@ -50,17 +44,27 @@ M
 pkg/kit/task_runner/entity.go,8/b/8bcb3f4943c4c84040bd904d255c104d258ec849
 S
 #pkg/kit/db_connection/orm/entity.go,9/3/93d9b0156820ab58aaa4f924bd22215137faa9f4
-T
-$pkg/kit/db_connection/orm/service.go,d/6/d6e92ad7197029c7115866d75c4d828212c3da6f
 V
 &pkg/kit/db_connection/simple/entity.go,d/d/dd8bff9d0740c0f046d7f2ca9affe31036c8d67a
 ]
 -pkg/kit/db_connection/simple/mysql/service.go,c/4/c46764d61283283d042f1568714a0e85d2769e6b
 ^
 .pkg/kit/db_connection/simple/oracle/service.go,2/1/2151c603ec01465f2c7ddb0ec1c89a3c8c602bf8
-Y
-)pkg/kit/db_connection/orm/mysql/entity.go,0/d/0d80ff3133970ef74a6dc2cc477d158347a2d220
 Z
 *pkg/kit/db_connection/orm/mysql/service.go,6/0/602c2831b1a6ecfb930b2303d8753c826152948c
 [
 +pkg/kit/db_connection/orm/oracle/service.go,f/b/fbdeab666c38b1d642e054711d4bf96c162670a6
+M
+pkg/kit/app_builder/README.MD,7/7/77cab956294a53c7c9658afbe57cc2e5250f132e
+E
+pkg/kit/app/entity.go,4/0/40f286f8bb38be8c668cb3fc2f8cf1966888f24c
+F
+pkg/kit/app/service.go,e/6/e6510d9b886656350fa92fc61fcfd38c51d3c261
+J
+pkg/kit/app/ping/entity.go,0/6/064f107c3c8d6e1e9b8830d4b9c9dbfb0c356ee6
+K
+pkg/kit/app/ping/service.go,2/9/29d74c8d18a3d03d36880a7d308753a27720b27c
+N
+pkg/kit/app_builder/service.go,c/b/cb01fb70eaca514825a7142117f2a4f593a63d8f
+M
+pkg/kit/app_builder/entity.go,3/2/32a0d20504cdb796259c9bc86bb01b49e768d134

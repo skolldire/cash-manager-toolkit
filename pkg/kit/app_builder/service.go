@@ -1,4 +1,4 @@
-package web_app_builder
+package app_builder
 
 // Builder ´director´
 // The "Director" is the one who decides in what order the builder methods should be called to build the object.

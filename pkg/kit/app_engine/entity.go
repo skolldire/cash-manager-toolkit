@@ -2,14 +2,13 @@ package app_engine
 
 import (
 	"database/sql"
-	"github.com/go-chi/chi/v5"
 	"github.com/jinzhu/gorm"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/app"
 	"net/http"
-	"sync"
 )
 
 type Engine struct {
-	App                 *App
+	App                 *app.Service
 	HttpClient          map[string]http.Client
 	DBOrmConnections    map[string]*gorm.DB
 	DBSimpleConnections map[string]*sql.DB
@@ -20,12 +19,5 @@ type Engine struct {
 
 type Service interface {
 	Init() (Engine, error)
-	Run() error
-}
-
-type App struct {
-	Router *chi.Mux
-	Port   int
-	Scope  string
-	mutex  sync.Mutex
+	Run()
 }
