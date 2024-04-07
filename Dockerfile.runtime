@@ -1,0 +1,3 @@
+ENV GO_ENVIRONMENT=production
+ENV CONF_DIR=/app/config
+
