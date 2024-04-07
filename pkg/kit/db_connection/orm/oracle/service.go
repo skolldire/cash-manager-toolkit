@@ -1,18 +1,20 @@
-package db_connection
+package oracle
 
 import (
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/db_connection/orm"
 	"log"
 )
 
 type service struct {
-	config Config
+	config orm.Config
 }
 
-var _ Service = (*service)(nil)
+var _ orm.Service = (*service)(nil)
 
-func NewService(c Config) *service {
+func NewService(c orm.Config) *service {
 	return &service{config: c}
 }
 

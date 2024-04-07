@@ -3,6 +3,7 @@ module github.com/skolldire/cash-manager-toolkit
 go 1.22
 
 require (
+	github.com/go-chi/chi/v5 v5.0.12
 	github.com/jinzhu/gorm v1.9.16
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/sirupsen/logrus v1.9.3

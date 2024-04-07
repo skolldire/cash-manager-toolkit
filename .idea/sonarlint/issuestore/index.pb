@@ -48,3 +48,19 @@ S
 #pkg/kit/task_runner/service_test.go,0/a/0a87ea4dc3465746d1a5e8bd21d6fa42d8c0aaf2
 M
 pkg/kit/task_runner/entity.go,8/b/8bcb3f4943c4c84040bd904d255c104d258ec849
+S
+#pkg/kit/db_connection/orm/entity.go,9/3/93d9b0156820ab58aaa4f924bd22215137faa9f4
+T
+$pkg/kit/db_connection/orm/service.go,d/6/d6e92ad7197029c7115866d75c4d828212c3da6f
+V
+&pkg/kit/db_connection/simple/entity.go,d/d/dd8bff9d0740c0f046d7f2ca9affe31036c8d67a
+]
+-pkg/kit/db_connection/simple/mysql/service.go,c/4/c46764d61283283d042f1568714a0e85d2769e6b
+^
+.pkg/kit/db_connection/simple/oracle/service.go,2/1/2151c603ec01465f2c7ddb0ec1c89a3c8c602bf8
+Y
+)pkg/kit/db_connection/orm/mysql/entity.go,0/d/0d80ff3133970ef74a6dc2cc477d158347a2d220
+Z
+*pkg/kit/db_connection/orm/mysql/service.go,6/0/602c2831b1a6ecfb930b2303d8753c826152948c
+[
++pkg/kit/db_connection/orm/oracle/service.go,f/b/fbdeab666c38b1d642e054711d4bf96c162670a6

@@ -18,33 +18,36 @@ Below is a basic example of how to define and execute tasks using Gorun:
 package main
 
 import (
-	"github.com/skolldire/cash-manager-toolkit/pkg/kit/task_runner"
-	"fmt"
 	"context"
+	"errors"
+	"fmt"
+	tr "github.com/skolldire/cash-manager-toolkit/pkg/kit/task_runner"
 )
 
 func main() {
 	// Define your tasks
-	tasks := map[string]Tasker{
-		"task-ok": Task[int, int]{
-			Func: func(ctx context.Context, i int) (int, error) {
-				return i + 1, nil
-			},
-			Args: 1,
+	taskOk := tr.Task[int, int]{
+		Args: 1,
+		Func: func(ctx context.Context, i int) (int, error) {
+			return i + 1, nil
 		},
-		"task-with-error": Task[int, int]{
-			Func: func(ctx context.Context, i int) (int, error) {
-				if i == 0 {
-					return 0, errors.New("cannot divide by zero")
-				}
-				return 2 / i, nil
-			},
-			Args: 0,
+	}
+
+	taskError := tr.Task[int, int]{
+		Args: 0,
+		Func: func(ctx context.Context, i int) (int, error) {
+			if i == 0 {
+				return 0, errors.New("cannot divide by zero")
+			}
+			return 2 / i, nil
 		},
 	}
 
 	// Execute all tasks
-	results := Execute(context.TODO(), tasks)
+	results := tr.Execute(context.TODO(), map[string]tr.Tasker{
+		"task-ok":         taskOk,
+		"task-with-error": taskError,
+	})
 
 	// Show the results
 	for id, result := range results {
