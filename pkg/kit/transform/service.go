@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/mitchellh/mapstructure"
-	"github.com/skolldire/dd-go-toolkit/pkg/kit/error_wrapper"
-
-	//"github.com/skolldire/cash-manager-toolkit/pkg/kit/error_wrapper"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/error_wrapper"
 	"net/http"
 )
 

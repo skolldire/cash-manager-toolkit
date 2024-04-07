@@ -1,4 +1,4 @@
-module github.com/skolldire/dd-go-toolkit
+module github.com/skolldire/cash-manager-toolkit
 
 go 1.22
 

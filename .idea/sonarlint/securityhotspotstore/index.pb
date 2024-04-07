@@ -32,3 +32,15 @@ O
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+M
+pkg/kit/http/client/entity.go,2/4/2407f583e549067b7ff57ee9ef14f80e6b87c330
+N
+pkg/kit/http/client/service.go,c/0/c0e85f9c72c11e30f540a006b878e875c1966cbd
+R
+"pkg/kit/web_app_builder/service.go,d/6/d6759f4d0df29a0fa77ff0420a6f72bf7ae16521
+Q
+!pkg/kit/web_app_builder/entity.go,e/b/eb5aa104104caaea6f39f14313ea47bb916f97e9
+N
+pkg/kit/task_runner/service.go,b/8/b8964af68c0176f5997344bcd585ec19a8544f75
+M
+pkg/kit/task_runner/README.MD,6/f/6f44839968a6afe61271d2a02ec90e13c41d0c38
