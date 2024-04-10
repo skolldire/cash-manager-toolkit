@@ -36,7 +36,9 @@ _cgo_export.*
 
 # Common IDE folders
 .idea
+.idea/.*
 .vscode
+.DS_Store
 
 # Custom folders
 /coverage
