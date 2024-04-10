@@ -1,23 +1,54 @@
 package app_engine
 
-var _ Service = (*Engine)(nil)
+import (
+	"database/sql"
+	"github.com/skolldire/cash-manager-toolkit/pkg/client/log"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/app"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/db_connection"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/db_connection/orm"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/db_connection/simple"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/load_properties/viper"
+	"xorm.io/xorm"
+)
 
-func NewService() *Engine {
+func NewApp() *Engine {
+	v := viper.NewService()
+	c, err := v.Apply()
+	if err != nil {
+		panic(err)
+	}
 	return &Engine{
-		App:                 nil,
+		App:                 app.NewService(c.Application),
+		Tracer:              creteTracer(c.Application),
 		HttpClient:          nil,
-		DBOrmConnections:    nil,
-		DBSimpleConnections: nil,
-		RepositoriesConfig:  nil,
-		UsesCasesConfig:     nil,
-		HandlerConfig:       nil,
+		DBOrmConnections:    createDBOrmConnections(c.DBOrmConnectionsConfig),
+		DBSimpleConnections: createDBSimpleConnections(c.DBSimpleConnectionsConfig),
+		RepositoriesConfig:  c.RepositoriesConfig,
+		UsesCasesConfig:     c.UsesCasesConfig,
+		HandlerConfig:       c.HandlerConfig,
 	}
 }
 
-func (e Engine) Init() (Engine, error) {
-	panic("implement me")
+func creteTracer(config app.Config) log.Service {
+	return log.NewService(config.LogLevel)
 }
 
-func (e Engine) Run() {
-	panic("implement me")
+func createDBOrmConnections(cs []map[string]db_connection.Config) map[string]*xorm.Engine {
+	connections := make(map[string]*xorm.Engine)
+	for _, c := range cs {
+		for k, v := range c {
+			connections[k] = orm.NewService(v).Init()
+		}
+	}
+	return connections
+}
+
+func createDBSimpleConnections(cs []map[string]db_connection.Config) map[string]*sql.DB {
+	connections := make(map[string]*sql.DB)
+	for _, c := range cs {
+		for k, v := range c {
+			connections[k] = simple.NewService(v).Init()
+		}
+	}
+	return connections
 }

@@ -20,6 +20,7 @@ type App struct {
 }
 
 type Config struct {
-	Port  string
-	Scope string
+	Port     string
+	Scope    string
+	LogLevel string
 }

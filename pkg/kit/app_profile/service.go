@@ -7,30 +7,30 @@ import (
 
 // GetProfileByScopeSuffix retrieves the app_profile by coincidence in the scope suffix
 // this is an adaptation of the ScopeUtils.java
-func GetProfileByScopeSuffix() string {
-	tokens := strings.Split(getScopeValue(), "-")
+func GetProfileByScope() string {
+	tokens := strings.Split(GetScopeValue(), "-")
 	return tokens[len(tokens)-1]
 }
 
 // IsLocalProfile retrieves information about if the app_profile is local or not
 // this is an adaptation of the ScopeUtils.java
 func IsLocalProfile() bool {
-	return Local == getScopeValue()
+	return Local == GetScopeValue()
 }
 
 // IsTestProfile retrieves information about if the app_profile is test or not
 // this is an adaptation of the ScopeUtils.java
 func IsTestProfile() bool {
-	return strings.HasSuffix(getScopeValue(), Test)
+	return strings.HasSuffix(GetScopeValue(), Test)
 }
 
 // IsProdProfile retrieves information about if the app_profile is prod or not
 // this is an adaptation of the ScopeUtils.java
 func IsProdProfile() bool {
-	return strings.HasSuffix(getScopeValue(), Prod)
+	return strings.HasSuffix(GetScopeValue(), Prod)
 }
 
-func getScopeValue() string {
+func GetScopeValue() string {
 	scope := os.Getenv("SCOPE")
 	if scope != "" {
 		return scope

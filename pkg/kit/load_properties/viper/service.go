@@ -28,24 +28,22 @@ var _ load_properties.LoadProperties = (*service)(nil)
 
 func NewService() *service {
 	return &service{propertyFiles: []string{"application.yaml", "application-local.yaml",
-		"application-test.yaml", "application-stage.yaml", "application-prod.yaml"}}
+		"application-pt.yaml", "application-qa.yaml", "application-prod.yaml"}}
 }
 
 // Apply load the properties from the files
 func (s *service) Apply() (load_properties.Config, error) {
 	var pivot map[string]interface{}
-	err := s.validateFiles()
-	if err != nil {
-		panic(fmt.Errorf(errorLoadingConfiguration, err))
-	}
+	//Read basic config in application.yaml properties file
 	v1 := viper.New()
 	v1.AddConfigPath(path)
 	v1.SetConfigName("application")
 	v1.AutomaticEnv()
-	err = v1.ReadInConfig()
+	err := v1.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf(errorLoadingConfiguration, err))
 	}
+	//Read custom property files by scope
 	v2 := viper.New()
 	v2.AddConfigPath(path)
 	v2.SetConfigName(s.getPropertyToLoad())
@@ -53,6 +51,7 @@ func (s *service) Apply() (load_properties.Config, error) {
 	if err != nil {
 		panic(fmt.Errorf(errorLoadingConfiguration, err))
 	}
+	//Unify properties
 	err = v1.MergeConfigMap(v2.AllSettings())
 	if err != nil {
 		return load_properties.Config{}, err
@@ -95,7 +94,7 @@ func (s *service) validateFiles() error {
 // Method that returns the properties to load.
 func (s *service) getPropertyToLoad() string {
 	scopeProp := fmt.Sprintf("application-%s", app_profile.GetScopeValue())
-	profileProp := fmt.Sprintf("application-%s", app_profile.GetProfileByScopeSuffix())
+	profileProp := fmt.Sprintf("application-%s", app_profile.GetProfileByScope())
 	fileList := listFiles()
 	for _, s := range fileList {
 		if strings.Contains(s, scopeProp) {
@@ -108,7 +107,7 @@ func (s *service) getPropertyToLoad() string {
 // Validate if the setting is encrypted or an environment variable
 func getEnv(key string) string {
 	if strings.HasPrefix(key, "${") && strings.HasSuffix(key, "}") {
-		return secret.FromEnv(strings.TrimSuffix(strings.TrimPrefix(key, "${"), "}"))
+		return os.Getenv(strings.TrimSuffix(strings.TrimPrefix(key, "${"), "}"))
 	}
 	return key
 }

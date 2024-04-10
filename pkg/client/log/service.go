@@ -13,7 +13,7 @@ type service struct {
 	Log *logrus.Logger
 }
 
-var _ Logger = (*service)(nil)
+var _ Service = (*service)(nil)
 var once sync.Once
 var l *logrus.Logger
 
