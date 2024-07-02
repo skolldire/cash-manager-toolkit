@@ -1,21 +1,17 @@
 package file_util
 
 import (
-	"io"
 	"os"
 )
 
-func ReadJsonFile(file string) []byte {
-	jsonFile, err := os.Open(file)
+func ListFiles(dir string) ([]string, error) {
+	var files []string
+	read, err := os.ReadDir(dir)
 	if err != nil {
-		return nil
+		return nil, err
 	}
-	defer func(jsonFile *os.File) {
-		_ = jsonFile.Close()
-	}(jsonFile)
-	byteValue, err := io.ReadAll(jsonFile)
-	if err != nil {
-		return nil
+	for _, file := range read {
+		files = append(files, file.Name())
 	}
-	return byteValue
+	return files, nil
 }

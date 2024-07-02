@@ -4,7 +4,6 @@ go 1.22
 
 require (
 	github.com/go-chi/chi/v5 v5.0.12
-	github.com/jinzhu/gorm v1.9.16
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.9.0
@@ -20,6 +19,7 @@ require (
 	github.com/go-openapi/jsonreference v0.20.0 // indirect
 	github.com/go-openapi/spec v0.20.6 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
+	github.com/gocarina/gocsv v0.0.0-20240520201108-78e41c74b4b1 // indirect
 	github.com/goccy/go-json v0.8.1 // indirect
 	github.com/godror/godror v0.42.1 // indirect
 	github.com/godror/knownpb v0.1.1 // indirect

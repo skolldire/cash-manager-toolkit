@@ -3,7 +3,6 @@ package viper
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"reflect"
 	"strings"
@@ -33,38 +32,62 @@ func NewService() *service {
 
 // Apply load the properties from the files
 func (s *service) Apply() (load_properties.Config, error) {
-	var pivot map[string]interface{}
 	//Read basic config in application.yaml properties file
-	v1 := viper.New()
-	v1.AddConfigPath(path)
-	v1.SetConfigName("application")
-	v1.AutomaticEnv()
-	err := v1.ReadInConfig()
+	v1, err := s.newViper("application")
 	if err != nil {
 		panic(fmt.Errorf(errorLoadingConfiguration, err))
 	}
 	//Read custom property files by scope
-	v2 := viper.New()
-	v2.AddConfigPath(path)
-	v2.SetConfigName(s.getPropertyToLoad())
-	err = v2.ReadInConfig()
+	v2, err := s.newViper(s.getPropertyToLoad())
 	if err != nil {
 		panic(fmt.Errorf(errorLoadingConfiguration, err))
 	}
-	//Unify properties
-	err = v1.MergeConfigMap(v2.AllSettings())
-	if err != nil {
-		return load_properties.Config{}, err
-	}
-	err = v1.Unmarshal(&pivot)
-	if err != nil {
-		return load_properties.Config{}, err
-	}
-	pivot, err = validateMapProperties(pivot)
+
+	err = s.mergeConfigs(v1, v2)
 	if err != nil {
 		return load_properties.Config{}, err
 	}
 
+	pivot, err := s.unmarshalAndValidate(v1)
+	if err != nil {
+		return load_properties.Config{}, err
+	}
+
+	prop, err := s.decodeConfig(pivot)
+	if err != nil {
+		return load_properties.Config{}, err
+	}
+
+	return prop, nil
+}
+
+// New Viper object with the configuration files
+func (s *service) newViper(env string) (*viper.Viper, error) {
+	v := viper.New()
+	v.AddConfigPath(path)
+	v.SetConfigName(env)
+	v.AutomaticEnv()
+	err := v.ReadInConfig()
+	if err != nil {
+		return nil, err
+	}
+	return v, nil
+}
+
+func (s *service) mergeConfigs(v1, v2 *viper.Viper) error {
+	return v1.MergeConfigMap(v2.AllSettings())
+}
+
+func (s *service) unmarshalAndValidate(v *viper.Viper) (map[string]interface{}, error) {
+	var pivot map[string]interface{}
+	err := v.Unmarshal(&pivot)
+	if err != nil {
+		return nil, err
+	}
+	return validateMapProperties(pivot)
+}
+
+func (s *service) decodeConfig(pivot map[string]interface{}) (load_properties.Config, error) {
 	var prop load_properties.Config
 	cfg := &mapstructure.DecoderConfig{
 		Metadata: nil,
@@ -72,11 +95,10 @@ func (s *service) Apply() (load_properties.Config, error) {
 		TagName:  "json",
 	}
 	decoder, _ := mapstructure.NewDecoder(cfg)
-	err = decoder.Decode(pivot)
+	err := decoder.Decode(pivot)
 	if err != nil {
-		panic(fmt.Errorf(errorLoadingConfiguration, err))
+		return load_properties.Config{}, err
 	}
-
 	return prop, nil
 }
 
@@ -202,7 +224,7 @@ func setPath() string {
 
 func readSecret(secretName string) (string, error) {
 	secretPath := "/run/secrets/" + secretName
-	secretData, err := ioutil.ReadFile(secretPath)
+	secretData, err := os.ReadFile(secretPath)
 	if err != nil {
 		return "", err
 	}

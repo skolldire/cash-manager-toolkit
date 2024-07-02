@@ -21,7 +21,7 @@ func BytesToModel[O any](c []byte) (O, error) {
 	decoder, _ := mapstructure.NewDecoder(cfg)
 	err = decoder.Decode(e)
 	if err != nil {
-		return h, error_wrapper.NewCommonApiError("CVT-001",
+		return h, error_wrapper.NewCommonApiError("TRF-001",
 			"[Convert Data To Response]Failed to convert byte array to struct", err, http.StatusInternalServerError)
 	}
 	return h, nil
@@ -31,7 +31,7 @@ func BytesToModel[O any](c []byte) (O, error) {
 func ModelToBytes[O any](c O) ([]byte, error) {
 	b, err := json.Marshal(c)
 	if err != nil {
-		return nil, error_wrapper.NewCommonApiError("CVT-002",
+		return nil, error_wrapper.NewCommonApiError("TRF-002",
 			"[Convert Data To Response]Failed to convert struct to bytes", err, http.StatusInternalServerError)
 	}
 	return b, nil
@@ -48,21 +48,21 @@ func MapToStructure[O any](c map[string]interface{}) (O, error) {
 	decoder, _ := mapstructure.NewDecoder(cfg)
 	err := decoder.Decode(c)
 	if err != nil {
-		return h, error_wrapper.NewCommonApiError("CVT-003",
+		return h, error_wrapper.NewCommonApiError("TRF-003",
 			"[Convert Data To Response]Failed to convert map to struct", err, http.StatusInternalServerError)
 	}
 	return h, nil
 }
 
-// ConvertStructToMap converts a struct to a map[string]interface{} respecting the json annotations
+// StructToMap converts a struct to a map[string]interface{} respecting the json annotations
 // Returns an error if the input is not a struct.
-func ConvertStructToMap(data interface{}) (map[string]interface{}, error) {
+func StructToMap(data interface{}) (map[string]interface{}, error) {
 
 	var mapa map[string]interface{}
 
 	// check if the input value is nil
 	if data == nil {
-		return mapa, fmt.Errorf("[ConvertStructToMap] input value is nil")
+		return mapa, fmt.Errorf("[StructToMap] input value is nil")
 	}
 
 	// convert the struct to JSON
