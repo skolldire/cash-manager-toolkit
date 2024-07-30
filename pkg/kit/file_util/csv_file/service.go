@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func ReadFile[O any](path string) ([]O, error) {
+func Read[O any](path string) ([]O, error) {
 	csvFile, err := os.OpenFile(path, os.O_RDWR, os.ModePerm)
 	if err != nil {
 		return nil, err
@@ -19,7 +19,7 @@ func ReadFile[O any](path string) ([]O, error) {
 	return registries, nil
 }
 
-func WriteFile[I any](path string, data []I) error {
+func Write[I any](path string, data []I) error {
 	file, err := os.Create(path)
 	if err != nil {
 		return err

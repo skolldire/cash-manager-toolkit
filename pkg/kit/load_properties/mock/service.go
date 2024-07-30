@@ -3,7 +3,7 @@
 package mock
 
 import (
-	"github.com/melisource/fury_op-go-toolkit/pkg/kit/load_properties"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/load_properties"
 	"github.com/stretchr/testify/mock"
 )
 

@@ -3,7 +3,6 @@ package simple
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/godror/godror"
 	"github.com/skolldire/cash-manager-toolkit/pkg/kit/db_connection"
 	"time"
@@ -24,7 +23,7 @@ func NewService(cfg db_connection.Config) *service {
 func (s service) Init() *sql.DB {
 	connLine := fmt.Sprintf(s.config.DbDns, s.config.DbUser, s.config.DbPassword,
 		s.config.DbHost, s.config.DbPort, s.config.DbName)
-	db, err := sql.Open(s.config.DbDriver, connLine)
+	db, err := sql.Open("godror", connLine)
 	if err != nil {
 		panic(fmt.Errorf("error in sql.Open: %w", err))
 	}

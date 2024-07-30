@@ -2,11 +2,14 @@ package txt_file
 
 import (
 	"encoding/json"
+	"fmt"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/error_wrapper"
+	"github.com/skolldire/cash-manager-toolkit/pkg/kit/file_util"
 	"io"
 	"os"
 )
 
-func WriteStructsToFile[I any](path string, data []I) error {
+func Write[I any](path string, data []I) error {
 	file, err := os.Create(path)
 	if err != nil {
 		return err
@@ -29,10 +32,11 @@ func WriteStructsToFile[I any](path string, data []I) error {
 	return nil
 }
 
-func ReadFile[O any](path string) ([]O, error) {
+func Read[O any](path string) ([]O, error) {
 	file, err := os.Open(path)
 	if err != nil {
-		return nil, err
+		return nil, error_wrapper.NewCommonApiError(file_util.CFE.Code,
+			fmt.Sprintf(file_util.CFE.Msg, "xml"), err, file_util.CFE.HttpCode)
 	}
 	defer file.Close()
 	bytes, err := io.ReadAll(file)

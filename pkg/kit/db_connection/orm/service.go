@@ -2,7 +2,6 @@ package orm
 
 import (
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/godror/godror"
 	"github.com/skolldire/cash-manager-toolkit/pkg/kit/db_connection"
 	"log"
@@ -21,7 +20,7 @@ func NewService(c db_connection.Config) *service {
 }
 
 func (s *service) Init() *xorm.Engine {
-	engine, err := xorm.NewEngine(s.config.DbDriver, fmt.Sprintf(s.config.DbDns, s.config.DbUser,
+	engine, err := xorm.NewEngine("godror", fmt.Sprintf(s.config.DbDns, s.config.DbUser,
 		s.config.DbPassword, s.config.DbHost, s.config.DbPort, s.config.DbName))
 	if err != nil {
 		log.Fatal(err)
