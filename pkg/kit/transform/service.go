@@ -60,19 +60,16 @@ func StructToMap(data interface{}) (map[string]interface{}, error) {
 
 	var mapa map[string]interface{}
 
-	// check if the input value is nil
 	if data == nil {
 		return mapa, fmt.Errorf("[StructToMap] input value is nil")
 	}
 
-	// convert the struct to JSON
-	dadosEmJson, err := json.Marshal(data)
+	dadsEmJson, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
 	}
 
-	// deserialize the JSON to the map
-	err = json.Unmarshal(dadosEmJson, &mapa)
+	err = json.Unmarshal(dadsEmJson, &mapa)
 	if err != nil {
 		return nil, err
 	}

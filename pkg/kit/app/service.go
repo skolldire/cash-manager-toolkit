@@ -17,11 +17,9 @@ func NewService(c Config) *App {
 	}
 }
 
-func (a App) Run() {
-	err := http.ListenAndServe(a.Port, a.Router)
-	if err != nil {
-		panic(err)
-	}
+func (a App) Run() error {
+	return http.ListenAndServe(a.Port, a.Router)
+
 }
 
 func initRoutes() *chi.Mux {

@@ -10,7 +10,7 @@ const (
 )
 
 type Service interface {
-	Run()
+	Run() error
 }
 
 type App struct {
