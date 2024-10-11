@@ -8,6 +8,7 @@ import (
 	"github.com/skolldire/cash-manager-toolkit/pkg/kit/db_connection/orm"
 	"github.com/skolldire/cash-manager-toolkit/pkg/kit/db_connection/simple"
 	"github.com/skolldire/cash-manager-toolkit/pkg/kit/load_properties/viper"
+	"github.com/skolldire/cash-manager-toolkit/pkg/server/tcp"
 	"xorm.io/xorm"
 )
 
@@ -51,4 +52,18 @@ func createDBSimpleConnections(cs []map[string]db_connection.Config) map[string]
 		}
 	}
 	return connections
+}
+
+func createTCPServer(cs []map[string]tcp.Config, log log.Service) map[string]*tcp.Service {
+	servers := make(map[string]*tcp.Service)
+	for _, c := range cs {
+		for k, v := range c {
+			d := tcp.Dependencies{
+				Config: v,
+				Log:    log,
+			}
+			servers[k] = tcp.NewService(d)
+		}
+	}
+	return servers
 }

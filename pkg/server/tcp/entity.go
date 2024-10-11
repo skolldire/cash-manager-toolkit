@@ -5,12 +5,17 @@ import (
 )
 
 type Service interface {
-	Init(f ProcessingFunc)
+	GetMessage(f ProcessingFunc)
 }
 
 type ProcessingFunc func(msg string) (string, error)
 
 type Dependencies struct {
-	Port string
-	Log  log.Service
+	Config Config
+	Log    log.Service
+}
+
+type Config struct {
+	Port         string `json:"port"`
+	InstanceName string `json:"instance_name"`
 }
